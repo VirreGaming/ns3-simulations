@@ -82,17 +82,20 @@ int main (int argc, char **argv)
   cmd.AddValue ("showPings", "Show Ping reception", showPings);
   cmd.AddValue ("splitHorizonStrategy", "Split Horizon strategy to use (NoSplitHorizon, SplitHorizon, PoisonReverse)", SplitHorizon);
   cmd.Parse (argc, argv);
-
   if (verbose)
     {
-      LogComponentEnableAll (LogLevel (LOG_PREFIX_TIME | LOG_PREFIX_NODE));
       LogComponentEnable ("RipNgSimpleRouting", LOG_LEVEL_INFO);
       LogComponentEnable ("RipNg", LOG_LEVEL_ALL);
+      LogComponentEnable ("Icmpv6L4Protocol", LOG_LEVEL_INFO);
       LogComponentEnable ("Ipv6Interface", LOG_LEVEL_ALL);
       LogComponentEnable ("Icmpv6L4Protocol", LOG_LEVEL_ALL);
-      LogComponentEnable ("Ipv6L3Protocol", LOG_LEVEL_ALL);
       LogComponentEnable ("NdiscCache", LOG_LEVEL_ALL);
-      LogComponentEnable ("Ping", LOG_LEVEL_ALL);
+      LogComponentEnable ("Ping6Application", LOG_LEVEL_ALL);
+    }
+
+  if (showPings)
+    {
+      LogComponentEnable ("Ping6Application", LOG_LEVEL_INFO);
     }
 
   if (SplitHorizon == "NoSplitHorizon")
